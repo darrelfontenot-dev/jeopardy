@@ -85,7 +85,7 @@ html:has(body.in-game) { background: var(--g-night); }
 .fj-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .06em; font-size: clamp(14px, 2.3vh, 22px); }
 .fj-logo { height: clamp(26px, 4.2vh, 40px); width: auto; }
 .fj-brand-a { color: #fff; }
-.fj-brand-name { color: var(--blue-brand); }
+.fj-brand-name { color: #ff6b6b; }
 .fj-round { font-weight: 700; letter-spacing: .18em; color: var(--g-gold); font-size: clamp(12px, 2vh, 20px); text-align: center; flex: 1; }
 .fj-tools { display: flex; gap: 8px; }
 .fj-tool { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); color: #fff; border-radius: var(--radius-md); padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; }
