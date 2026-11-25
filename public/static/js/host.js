@@ -5,8 +5,41 @@
   var E = global.JeopardyEngine, FJ = global.FJ, esc = FJ.esc, money = FJ.money;
   var $ = function (id) { return document.getElementById(id); };
   var chan = null, state = null, eng = null, canUndo = false, timer = 0, helloTimer = 0;
+  var sender = null, skew = 0, notice = '', title = 'Host console';
 
-  function send(name, args) { chan.postMessage({ t: 'cmd', name: name, args: args || [] }); }
+  function send(name, args) {
+    if (sender) sender(name, args || []);
+    else chan.postMessage({ t: 'cmd', name: name, args: args || [] });
+  }
+
+  /* Moderator phone: same console, fed by the server instead of a second window. */
+  function mountRemote(opts) {
+    sender = opts.send;
+    title = 'Moderator';
+    document.body.classList.add('ui');
+    ['screen-setup', 'screen-admin', 'screen-game', 'screen-player'].forEach(function (id) { if ($(id)) $(id).hidden = true; });
+    var root = $('screen-host');
+    root.hidden = false;
+    root.classList.add('mod');
+    document.title = 'Moderator - Christmas Jeopardy';
+    root.addEventListener('click', onClick);
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && e.target.id === 'h-wager') { e.preventDefault(); wager(); }
+      if (e.key === 'Enter' && e.target.id === 'h-fwager') { e.preventDefault(); fwager(e.target); }
+    });
+    timer = setInterval(tickTimers, 200);
+    render();
+    return {
+      update: function (s) {
+        state = s && s.phase !== 'none' ? s : null;
+        canUndo = !!(s && s.canUndo);
+        skew = s && s.at ? s.at - Date.now() : 0;
+        eng = state ? new E(state) : null;
+        render();
+      },
+      notice: function (msg) { if (msg !== notice) { notice = msg; render(); } }
+    };
+  }
 
   function mount() {
     document.body.classList.add('ui');
@@ -97,18 +130,21 @@
 
   function render() {
     var root = $('screen-host');
+    var warn = notice ? '<div class="mod-warn">' + esc(notice) + '</div>' : '';
     if (!state) {
-      root.innerHTML = hostHead('Waiting for the game') + '<div class="host-wait">Start a game in the main window. This console connects automatically.</div>';
+      root.innerHTML = hostHead('Waiting for the game') + '<div class="host-body">' + warn + '<div class="host-wait">' +
+        (sender ? 'Start or resume the game on the main screen. This page updates by itself.' : 'Start a game in the main window. This console connects automatically.') + '</div></div>';
       return;
     }
-    var s = state;
+    var s = state, keep = ['h-wager', 'h-fwager'].map(function (id) { var el = $(id); return el && { id: id, v: el.value, f: document.activeElement === el }; });
     root.innerHTML = hostHead(FJ.roundLabel(s) + ' &middot; ' + esc(FJ.stepHint(s))) +
-      '<div class="host-body">' + nowCard(s) + scoreCard(s) + '</div>';
+      '<div class="host-body">' + warn + nowCard(s) + scoreCard(s) + '</div>';
+    keep.forEach(function (k) { var el = k && $(k.id); if (el) { el.value = k.v; if (k.f) el.focus(); } });
     tickTimers();
   }
 
   function hostHead(sub) {
-    return '<header class="host-head"><img src="/static/img/logo-dark.svg" alt="" class="host-logo"><div><div class="host-title">Host console</div><div class="host-sub">' + sub + '</div></div>' +
+    return '<header class="host-head"><img src="/static/img/logo-dark.svg" alt="" class="host-logo"><div><div class="host-title">' + title + '</div><div class="host-sub">' + sub + '</div></div>' +
       '<div class="host-tools">' + (state ? b('undo', '&#8630; Undo', '', canUndo ? '' : ' disabled') : '') + '</div></header>';
   }
 
@@ -191,6 +227,7 @@
   function hostResponse(s, pid) {
     var r = s.fresp && s.fresp[pid];
     if (!r) return '<div class="host-resp is-none">No response sent</div>';
+    if (r.ink === true) return '<div class="host-resp is-none">Handwritten response &mdash; see the main screen</div>';
     if (r.ink) return '<div class="host-resp is-ink"><img src="' + esc(r.ink) + '" alt="Handwritten response"></div>';
     return '<div class="host-resp">' + esc(r.text) + '</div>';
   }
@@ -234,8 +271,8 @@
     var el = $('h-timer');
     if (!el || !state) return;
     var d = state.clue ? state.clue.deadline : state.final ? state.final.deadline : null;
-    el.textContent = d ? Math.max(0, Math.ceil((d - Date.now()) / 1000)) + 's' : '';
+    el.textContent = d ? Math.max(0, Math.ceil((d - Date.now() - skew) / 1000)) + 's' : '';
   }
 
-  global.FJHost = { mount: mount };
+  global.FJHost = { mount: mount, mountRemote: mountRemote };
 })(window);

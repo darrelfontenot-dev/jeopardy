@@ -306,6 +306,29 @@ html:has(body.in-game) { background: var(--g-night); }
   .fj-tool { padding: 5px 8px; font-size: 12px; }
   .fj-brand-name { display: none; }
 }
+
+/* Moderator / host console on a phone: big touch targets, full-width actions, no zoom-on-focus. */
+.host { -webkit-tap-highlight-color: transparent; padding-bottom: env(safe-area-inset-bottom); }
+.host .btn, .host .mb-tile { touch-action: manipulation; }
+@media (max-width: 760px) {
+  .host-head { padding: 10px 12px; padding-top: calc(10px + env(safe-area-inset-top)); }
+  .host-body { padding: 10px; gap: 10px; }
+  .host-card .card-body { padding: 14px; }
+  .host-clue { font-size: 17px; }
+  .host-answer { font-size: 19px; }
+  .host-actions { flex-direction: column; align-items: stretch; }
+  .host .host-actions .btn { justify-content: center; min-height: 50px; font-size: 16px; }
+  .host .host-actions .num-input { width: 100%; min-height: 50px; font-size: 18px; }
+  .host-tools .btn { min-height: 44px; }
+  .host .mini-board { gap: 3px; }
+  .host .mb-cat { font-size: 9px; padding: 4px 2px; min-height: 40px; overflow-wrap: anywhere; }
+  .host .mb-tile { min-height: 48px; font-size: 13px; }
+  .ui-table td { padding: 8px 4px; }
+  .host .host-mini { white-space: normal; }
+  .host .host-mini .btn { min-height: 44px; min-width: 56px; padding: 6px 10px; margin: 2px; }
+}
+.host input { font-size: 16px; }
+
 @media (prefers-reduced-motion: reduce) {
   .fj *, .fj *::before, .fj *::after { animation: none !important; transition: none !important; }
 }

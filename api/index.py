@@ -370,6 +370,19 @@ async def mod_state(fid: str, request: Request, key: str = Query(...)) -> dict:
     return {"ok": True}
 
 
+@app.post("/api/mod/{fid}/cmd")
+async def mod_command(fid: str, request: Request, view: str = Query(...)) -> dict:
+    body = await _json(request)
+    args = body.get("args", [])
+    await _call(lambda: modfeed.push_command(modfeed.view_feed(fid, view), str(body.get("name") or ""), args))
+    return {"ok": True}
+
+
+@app.get("/api/mod/{fid}/cmds")
+async def mod_commands(fid: str, key: str = Query(...), since: int = Query(-1)) -> JSONResponse:
+    return JSONResponse(await _call(lambda: modfeed.poll_commands(modfeed.host_feed(fid, key), since)), headers=NO_STORE)
+
+
 @app.get("/api/mod/{fid}")
 async def mod_poll(fid: str, view: str = Query(...), since: int = Query(-1)) -> JSONResponse:
     return JSONResponse(await _call(lambda: modfeed.poll(modfeed.view_feed(fid, view), since)), headers=NO_STORE)

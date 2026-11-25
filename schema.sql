@@ -60,6 +60,8 @@ create table if not exists fj_feeds (
   ver int not null default 0,
   touched double precision not null
 );
+alter table fj_feeds add column if not exists cmds jsonb not null default '[]'::jsonb;
+alter table fj_feeds add column if not exists cseq int not null default 0;
 
 -- The app connects with the database owner role, which bypasses row level security.
 -- Enabling it with no policies keeps these tables closed to Supabase's public (anon) API.

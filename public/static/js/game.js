@@ -141,6 +141,7 @@
       mod.sent = '';
       try { localStorage.setItem(MOD_KEY, JSON.stringify(k)); } catch (e) { /* link just won't survive a reload */ }
       modPush();
+      modCmdLoop(k);
       return k;
     }, function (err) {
       mod.ready = null;
@@ -150,40 +151,54 @@
     return mod.ready;
   }
 
+  /* The whole game state the moderator's phone needs to draw the host console, minus secrets and bulky images. */
   function modState() {
     if (!engine) return { phase: 'none' };
-    var s = engine.s, p = { title: s.title, round: FJ.roundLabel(s), phase: s.phase };
-    p.players = s.players.map(function (q) { return { name: q.name, score: q.score }; });
-    var k = s.clue;
-    if (s.phase === 'clue' && k) {
-      var cell = engine.cell(k.c, k.r);
-      p.clue = {
-        category: engine.board().categories[k.c], value: k.value, dd: !!k.dd, wager: k.wager,
-        text: cell.clue, answer: cell.answer, media: cell.media || '', step: k.step, reading: !!k.reading,
-        answerer: k.answerer ? nameOf(k.answerer) : '', winner: k.winner ? nameOf(k.winner) : '', outcome: k.outcome || ''
-      };
-    } else if (s.phase === 'final' && s.finalClue) {
-      p.final = { category: s.finalClue.category, text: s.finalClue.clue, answer: s.finalClue.answer, step: s.final ? s.final.step : '' };
-      if (s.final && s.room) {
-        // Typed responses only: handwriting is too big for the feed and shows on the main screen and host console.
-        p.final.responses = s.final.eligible.map(function (id) {
-          var r = s.fresp && s.fresp[id];
-          return { name: nameOf(id), text: r ? r.text.slice(0, 200) : '', ink: !!(r && r.ink), sent: !!r };
-        });
-        p.final.judging = s.final.step === 'reveal' ? nameOf(s.final.order[s.final.ri]) : '';
-      }
+    var p = Object.assign({}, engine.s);
+    delete p.history;
+    p.sigs = {};
+    if (p.room) p.room = { code: p.room.code };
+    if (p.fresp) {
+      p.fresp = {};
+      Object.keys(engine.s.fresp).forEach(function (id) {
+        var r = engine.s.fresp[id];
+        p.fresp[id] = { text: r.text, ink: !!r.ink, at: r.at };
+      });
     }
+    p.canUndo = engine.canUndo();
     return p;
+  }
+
+  /* Commands the moderator sends from their phone run exactly like the host console's. */
+  function modCmdLoop(keys) {
+    if (mod.looping === keys) return;
+    mod.looping = keys;
+    var url = function (since) { return '/api/mod/' + encodeURIComponent(keys.id) + '/cmds?key=' + encodeURIComponent(keys.hostKey) + '&since=' + since; };
+    var step = function (since) {
+      if (mod.keys !== keys) { mod.looping = null; return; }
+      fetch(url(since), { cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('feed');
+        return r.json();
+      }).then(function (b) {
+        (b.cmds || []).forEach(function (c) { if (c.n > since) { try { exec(c.name, c.args || []); } catch (e) { /* a bad command must not stop the loop */ } } });
+        step(Math.max(since, b.seq));
+      }, function () { setTimeout(function () { step(since); }, 3000); });
+    };
+    // Start from the current sequence so old commands are never replayed.
+    fetch(url(-1), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (b) { step(b.seq || 0); },
+      function () { mod.looping = null; setTimeout(function () { if (mod.keys === keys) modCmdLoop(keys); }, 3000); });
   }
 
   function modPush() {
     if (!mod.keys) return;
     if (mod.busy) { mod.again = true; return; }
-    var body = JSON.stringify(modState());
+    var st = modState(), body = JSON.stringify(st);
     if (body === mod.sent) return;
+    st.at = Date.now();
+    var payload = JSON.stringify(st);
     mod.busy = true;
     fetch('/api/mod/' + encodeURIComponent(mod.keys.id) + '/state?key=' + encodeURIComponent(mod.keys.hostKey), {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload
     }).then(function (r) {
       if (r.ok) mod.sent = body;
       else if (r.status === 404) { mod.keys = null; mod.ready = null; modOpen().catch(function () {}); }
@@ -202,7 +217,8 @@
     if (!dlg.open) dlg.showModal();
     modOpen().then(function (k) {
       var url = modLink(k);
-      paint('<p>Open this link on the moderator&rsquo;s screen (another monitor, laptop, tablet or phone). It shows the clue being read and its correct response, and follows the game live. Keep it away from the players.</p>' +
+      paint('<p>Open this link on the moderator&rsquo;s phone. It shows the clue and its correct response and lets the moderator run the whole game: pick clues, open buzzers, mark answers, wagers, scores and Final Jeopardy. Keep it away from the players.</p>' +
+        '<p>Tip: cast this board to the TV and turn on &ldquo;Hide host buttons on this screen&rdquo; in the game menu.</p>' +
         '<div class="wager-row"><input id="mod-link" class="text-input mod-link" readonly value="' + esc(url) + '"></div>' +
         '<div class="dlg-actions"><button type="button" class="btn btn-primary" data-mod="copy">Copy link</button>' +
         '<button type="button" class="btn" data-mod="open">Open in a new window</button>' +

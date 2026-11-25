@@ -17,8 +17,23 @@ import db
 
 WAIT_SECONDS = 15.0
 POLL_INTERVAL = 0.3
-MAX_STATE_CHARS = 20000
+MAX_STATE_CHARS = 400000
 KEY_RE = re.compile(r"^[A-Za-z0-9_\-]{12,64}$")
+MAX_QUEUED = 30
+# Commands a moderator's device may send to the game screen.
+COMMANDS = {
+    "advance", "open", "buzz", "judge", "skip", "wager", "select", "control", "undo",
+    "endRound", "adjust", "finalWager", "finalAnswer", "media",
+}
+_migrated = False
+
+
+def _migrate() -> None:
+    global _migrated
+    if not _migrated:
+        db.run("ALTER TABLE fj_feeds ADD COLUMN IF NOT EXISTS cmds jsonb NOT NULL DEFAULT '[]'::jsonb")
+        db.run("ALTER TABLE fj_feeds ADD COLUMN IF NOT EXISTS cseq int NOT NULL DEFAULT 0")
+        _migrated = True
 
 
 class FeedProblem(Exception):
@@ -33,6 +48,7 @@ def _keys(row: dict) -> dict:
 
 def open_feed(fid: str = "", host_key: str = "", view_key: str = "") -> dict:
     """Return the caller's feed, recreating it with the same keys if it was purged, or make a new one."""
+    _migrate()
     row = db.fetch_one("SELECT id, host_key, view_key FROM fj_feeds WHERE id = %s", (fid or "",))
     if row is not None:
         if not secrets.compare_digest(row["host_key"], host_key or ""):
@@ -86,3 +102,32 @@ def poll(feed: dict, since: int) -> dict:
     if row is None:
         raise FeedProblem(404, "The game screen is not connected. Open the game, then reload this page.")
     return {"ver": row["ver"], "state": row["state"]}
+
+
+def push_command(feed: dict, name: str, args: list) -> None:
+    if name not in COMMANDS:
+        raise FeedProblem(400, "Unknown command.")
+    if not isinstance(args, list) or len(args) > 3 or not all(isinstance(a, (str, int, float, bool)) and len(str(a)) <= 40 for a in args):
+        raise FeedProblem(400, "Bad command arguments.")
+    _migrate()
+    with db.connection() as conn:
+        with conn.transaction():
+            row = conn.execute("SELECT cmds, cseq FROM fj_feeds WHERE id = %s FOR UPDATE", (feed["id"],)).fetchone()
+            seq = row["cseq"] + 1
+            cmds = (row["cmds"] or [])[-(MAX_QUEUED - 1):] + [{"n": seq, "name": name, "args": args}]
+            conn.execute("UPDATE fj_feeds SET cmds = %s, cseq = %s WHERE id = %s", (Jsonb(cmds), seq, feed["id"]))
+
+
+def poll_commands(feed: dict, since: int) -> dict:
+    """Commands newer than `since`. A negative `since` only reports the current sequence number."""
+    _migrate()
+    deadline = time.monotonic() + WAIT_SECONDS
+    while True:
+        row = db.fetch_one("SELECT cseq, cmds FROM fj_feeds WHERE id = %s", (feed["id"],))
+        if row is None:
+            raise FeedProblem(404, "The moderator feed is gone.")
+        if since < 0 or row["cseq"] > since or time.monotonic() >= deadline:
+            break
+        time.sleep(POLL_INTERVAL)
+    cmds = [] if since < 0 else [c for c in (row["cmds"] or []) if c["n"] > since]
+    return {"seq": row["cseq"], "cmds": cmds}
