@@ -32,7 +32,7 @@ GAME_ID_RE = re.compile(r"^[\w .&'()\-]{1,60}$")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
 LOCAL_DEV = os.environ.get("LOCAL_DEV", "").lower() in {"1", "true", "yes"}
 # Default Final Jeopardy music: an uploaded media file name or a link ("" = built-in loop).
-THINK_MUSIC = os.environ.get("THINK_MUSIC", "").strip()
+THINK_MUSIC = os.environ.get("THINK_MUSIC", "Final Jeopardy.mp3").strip()
 
 app = FastAPI(title="Christmas Jeopardy", docs_url=None, redoc_url=None)
 
