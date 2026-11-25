@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Christmas Jeopardy">
+  <circle cx="32" cy="32" r="30" fill="#c41e3a"/>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#ffcc33" stroke-width="3"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#ffcc33">?</text>
+  <ellipse cx="46" cy="12" rx="9" ry="4" transform="rotate(-35 46 12)" fill="#2e9e5b" stroke="#fff" stroke-width="1"/>
+  <ellipse cx="52" cy="18" rx="9" ry="4" transform="rotate(20 52 18)" fill="#1f7a45" stroke="#fff" stroke-width="1"/>
+  <circle cx="49" cy="15" r="3.2" fill="#ff3b3b" stroke="#fff" stroke-width="1"/>
+</svg>

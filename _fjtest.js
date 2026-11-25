@@ -1,0 +1,16 @@
+global.window = global;
+require('./public/static/js/engine.js');
+const E = global.JeopardyEngine;
+let t = 1000;
+const data = { id:'x', title:'t', rounds:[{name:'R1', categories:[{name:'A', clues:[{value:100,clue:'q',answer:'a'},{value:200,clue:'q2',answer:'a2'}]}]}] };
+const e = E.create({ data, players:[{name:'A'},{name:'B'}], opts:{autoOpen:true, openImmediately:true} }, { now: () => t });
+e.startBoard();
+e.board().grid[0].forEach(c => c.dd = false);
+e.selectClue(0,0);
+const k = () => e.s.clue;
+console.log('after select', k().step, k().reading, k().deadline);
+console.log('buzz', e.buzz('p1'), k().step, k().deadline);
+t += 60000; console.log('tick', e.tick(), k().timedOut);
+console.log('judge wrong', e.judge(false), k().step, k().deadline);
+e.finishReading(); console.log('finished', k().step, k().reading, k().deadline - t);
+console.log('buzz2', e.buzz('p2'), k().deadline - t);

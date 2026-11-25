@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christmas Jeopardy</title>
+<link rel="icon" type="image/svg+xml" href="/static/img/logo-dark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap">
+<link rel="stylesheet" href="/static/css/ui-tokens.css">
+<link rel="stylesheet" href="/static/css/ui.css">
+<link rel="stylesheet" href="/static/css/game.css">
+</head>
+<body class="ui">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- ============ Setup (lobby) ============ -->
+<div id="screen-setup" class="page-wrap" hidden>
+  <header class="header">
+    <div class="header-left">
+      <img class="brand-logo" src="/static/img/logo-dark.svg" alt="">
+      <span class="logo-text">Christmas Jeopardy</span>
+    </div>
+    <nav class="header-nav" aria-label="Primary">
+      <button class="nav-tab active" data-nav="setup" aria-current="page">Play</button>
+      <button class="nav-tab" data-nav="admin" id="nav-admin">Manage questions</button>
+    </nav>
+    <div class="header-right">
+      <button class="btn" type="button" id="btn-mod-link" title="A live page for the moderator that shows the answer to the clue being read">Moderator link</button>
+      <a class="btn" href="/?play=1" id="btn-join-player">Join as a player</a>
+      <span class="refresh-stamp" id="who"></span>
+    </div>
+  </header>
+
+  <div class="body-layout-outer">
+    <div class="hero-card">
+      <div class="hero-left">
+        <div class="hero-title-block">
+          <div class="hero-title">Christmas Jeopardy</div>
+          <div class="hero-subtitle">Pick a question set, add your contestants and play. A host-run holiday quiz show with three rounds, just like the real thing.</div>
+        </div>
+        <div id="resume-box" class="resume-box" hidden></div>
+      </div>
+    </div>
+
+    <main class="main-column" id="main-content">
+      <div class="setup-grid">
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">Question set</h2>
+            <div class="card-header-right"><button class="btn" id="btn-reload-games" type="button">Reload</button></div></div>
+          <div class="card-body">
+            <label class="field-label" for="sel-game">Questions</label>
+            <select id="sel-game" class="dropdown wide"></select>
+            <p class="field-note" id="game-info"></p>
+            <p class="notice" id="game-warning" hidden></p>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">Contestants</h2>
+            <div class="card-header-right" id="local-player-btns">
+              <button class="btn" id="btn-remove-player" type="button">&minus; Remove</button>
+              <button class="btn" id="btn-add-player" type="button">+ Add</button>
+            </div></div>
+          <div class="card-body">
+            <div class="opt-row ring-mode"><span>How players ring in</span>
+              <div class="toggle-group toggle-group--small" id="ring-mode"><button class="toggle-pill" data-v="0" type="button">Host keyboard</button><button class="toggle-pill" data-v="1" type="button">Their own devices</button></div></div>
+            <div id="local-players">
+              <div id="player-list" class="player-list"></div>
+            </div>
+            <div id="room-panel" class="room-panel" hidden>
+              <div class="room-code-row">
+                <div><div class="field-label">Game code</div><div class="room-code" id="room-code">&hellip;</div></div>
+                <div class="room-link-box"><div class="field-label">Players open this link on their phone or laptop</div>
+                  <div class="room-link-row"><input class="text-input" id="room-link" readonly><button class="btn" id="btn-copy-link" type="button">Copy</button></div></div>
+              </div>
+              <div class="field-label">Joined (<span id="room-count">0</span> of 6)</div>
+              <ul class="room-players" id="room-players"></ul>
+              <p class="notice" id="room-error" hidden></p>
+            </div>
+            <label class="field-label" for="sel-first">Who picks first</label>
+            <select id="sel-first" class="dropdown wide"></select>
+            <p class="field-note" id="players-note">Ring in with the number key shown next to each name, or by clicking the podium.</p>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">Game options</h2></div>
+          <div class="card-body opts-grid">
+            <div class="opt-row"><span>Sound effects</span>
+              <div class="toggle-group toggle-group--small" data-opt-toggle="sound"><button class="toggle-pill" data-v="1" type="button">On</button><button class="toggle-pill" data-v="0" type="button">Off</button></div></div>
+            <div class="opt-row"><span>Read clues aloud</span>
+              <div class="toggle-group toggle-group--small" data-opt-toggle="readAloud"><button class="toggle-pill" data-v="1" type="button">On</button><button class="toggle-pill" data-v="0" type="button">Off</button></div></div>
+            <div class="opt-row"><label for="opt-voice">Reading voice</label><select id="opt-voice" class="dropdown"></select></div>
+            <div class="opt-row"><span>Open buzzers automatically</span>
+              <div class="toggle-group toggle-group--small" data-opt-toggle="autoOpen"><button class="toggle-pill" data-v="1" type="button">On</button><button class="toggle-pill" data-v="0" type="button">Off</button></div></div>
+            <div class="opt-row" id="opt-row-immediate" title="Players can ring in as soon as the clue starts being read. The answer countdown only starts once the full clue has been read."><span>&#8627; Open immediately (as reading starts)</span>
+              <div class="toggle-group toggle-group--small" data-opt-toggle="openImmediately"><button class="toggle-pill" data-v="1" type="button">On</button><button class="toggle-pill" data-v="0" type="button">Off</button></div></div>
+            <div class="opt-row"><span>Play Double Jeopardy round</span>
+              <div class="toggle-group toggle-group--small" data-opt-toggle="doubleJeopardy"><button class="toggle-pill" data-v="1" type="button">On</button><button class="toggle-pill" data-v="0" type="button">Off</button></div></div>
+            <div class="opt-row"><label for="opt-buzz">Ring-in window (seconds)</label><input id="opt-buzz" class="num-input" type="number" min="2" max="30" value="5"></div>
+            <div class="opt-row"><label for="opt-answer">Time to answer (seconds)</label><input id="opt-answer" class="num-input" type="number" min="2" max="60" value="5"></div>
+            <div class="opt-row"><label for="opt-final">Final Jeopardy think time (seconds)</label><input id="opt-final" class="num-input" type="number" min="10" max="120" value="30"></div>
+            <div class="opt-row opt-row-wide"><label for="opt-think">Final Jeopardy music <span class="opt-hint">(blank = the app&rsquo;s default; or a sound file name / link; &ldquo;built-in&rdquo; = original music)</span></label><input id="opt-think" class="text-input" type="text" maxlength="300" placeholder="Built-in music" spellcheck="false"><span id="opt-think-err" class="opt-err"></span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header"><h2 class="card-title">How it plays</h2></div>
+          <div class="card-body how-to">
+            <ol>
+              <li>The host picks a clue for the player in control, reads it aloud, then presses <kbd>Space</kbd> to open the buzzers.</li>
+              <li>First to ring in answers. The host marks it right (<kbd>Y</kbd>) or wrong (<kbd>N</kbd>). Wrong costs the clue value and the others can ring in.</li>
+              <li>Daily Doubles let only the player in control wager. Double Jeopardy doubles every value.</li>
+              <li>Final Jeopardy: secret wagers, one clue, answers revealed lowest score first.</li>
+            </ol>
+            <p class="field-note">Tip: open the <strong>Host console</strong> from the in-game menu on a second screen or window so the answers stay private while you share the board.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="start-row">
+        <button class="btn btn-primary btn-xl" id="btn-start" type="button">Start game</button>
+        <span class="field-note" id="start-note"></span>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ============ Question manager ============ -->
+<div id="screen-admin" class="page-wrap" hidden>
+  <header class="header">
+    <div class="header-left">
+      <img class="brand-logo" src="/static/img/logo-dark.svg" alt="">
+      <span class="logo-text">Christmas Jeopardy</span>
+    </div>
+    <nav class="header-nav" aria-label="Primary">
+      <button class="nav-tab" data-nav="setup">Play</button>
+      <button class="nav-tab active" data-nav="admin" aria-current="page">Manage questions</button>
+    </nav>
+    <div class="header-right"><button class="btn" type="button" id="btn-admin-signout">Lock</button><span class="refresh-stamp" id="who2"></span></div>
+  </header>
+  <div class="body-layout-outer">
+    <main class="main-column">
+      <section class="card">
+        <div class="card-header"><h2 class="card-title">Upload questions</h2>
+          <div class="card-header-right"><a class="btn" href="/api/admin/template" download>Download Excel template</a></div></div>
+        <div class="card-body">
+          <p class="field-note">Upload an Excel (.xlsx) or CSV file with Round, Category, Value, Question and Answer columns (plus optional Daily Double, Media and Answer Media). Uploading a set that already exists replaces it.</p>
+          <div class="upload-row">
+            <div><label class="field-label" for="up-name">Question set name</label><input id="up-name" class="text-input" type="text" value="Christmas Jeopardy" maxlength="60"></div>
+            <div><label class="field-label" for="up-file">File</label><input id="up-file" type="file" accept=".xlsx,.csv"></div>
+            <button class="btn btn-primary" id="btn-upload" type="button">Upload and save</button>
+          </div>
+          <div id="upload-result" class="upload-result" hidden></div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-header"><h2 class="card-title">Question sets</h2></div>
+        <div class="card-body"><div id="sets-table"></div></div>
+      </section>
+      <section class="card" id="media-card">
+        <div class="card-header"><h2 class="card-title">Media files</h2></div>
+        <div class="card-body">
+          <p class="field-note">Pictures, videos and sound for clues. Upload the files here, then type the file name in the <b>Media</b> column of the question file (or <b>Answer Media</b> to show it with the correct response; a YouTube, Vimeo or direct web link also works). Pictures: .png .jpg .gif .webp .svg &middot; Video: .mp4 .webm .m4v .mov &middot; Sound: .mp3 .wav .m4a .ogg &middot; up to 50 MB each. Uploading a file with the same name replaces it.</p>
+          <div class="upload-row">
+            <div><label class="field-label" for="media-file">Files</label><input id="media-file" type="file" multiple accept=".png,.jpg,.jpeg,.gif,.webp,.svg,.mp4,.webm,.m4v,.mov,.mp3,.wav,.m4a,.ogg"></div>
+            <button class="btn btn-primary" id="btn-media-upload" type="button">Upload files</button>
+          </div>
+          <div id="media-result" class="upload-result" hidden></div>
+          <div id="media-table"></div>
+        </div>
+      </section>
+      <section class="card" id="preview-card" hidden>
+        <div class="card-header"><h2 class="card-title" id="preview-title">Preview</h2>
+          <div class="card-header-right"><button class="btn" id="btn-close-preview" type="button">Close</button></div></div>
+        <div class="card-body" id="preview-body"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ============ Game ============ -->
+<div id="screen-game" class="fj" hidden>
+  <header class="fj-bar">
+    <div class="fj-brand"><img src="/static/img/logo-light.svg" alt="" class="fj-logo"><div><span class="fj-brand-a">CHRISTMAS</span> <span class="fj-brand-name">JEOPARDY</span></div></div>
+    <div class="fj-round" id="fj-round"></div>
+    <div class="fj-tools">
+      <span class="fj-join" id="fj-join" hidden></span>
+      <button class="fj-tool" id="t-undo" type="button" title="Undo last action (U)">&#8630; Undo</button>
+      <button class="fj-tool" id="t-sound" type="button" title="Sound (M)">&#128266;</button>
+      <button class="fj-tool" id="t-full" type="button" title="Full screen (F)">&#x26F6;</button>
+      <button class="fj-tool" id="t-menu" type="button" title="Menu (Esc)">&#9776; Menu</button>
+    </div>
+  </header>
+  <main class="fj-stage" id="stage">
+    <div class="fj-board" id="board"></div>
+    <div class="fj-overlay" id="overlay" hidden></div>
+    <div class="fj-media" id="media-layer" hidden></div>
+  </main>
+  <footer class="fj-podiums" id="podiums"></footer>
+  <div class="fj-toast" id="toast" role="status" aria-live="polite"></div>
+  <canvas id="confetti" class="fj-confetti"></canvas>
+</div>
+
+<!-- ============ Host console ============ -->
+<div id="screen-host" class="host" hidden></div>
+
+<!-- ============ Player buzzer (phones / laptops) ============ -->
+<div id="screen-player" class="pl" hidden></div>
+
+<!-- ============ Moderator answers (any device) ============ -->
+<div id="screen-mod" class="host mod" hidden></div>
+
+<dialog id="dlg-menu" class="fj-dialog"></dialog>
+<dialog id="dlg-score" class="fj-dialog"></dialog>
+<dialog id="dlg-help" class="fj-dialog"></dialog>
+<dialog id="dlg-mod" class="fj-dialog"></dialog>
+
+<script src="/static/js/engine.js"></script>
+<script src="/static/js/audio.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/game.js"></script>
+<script src="/static/js/host.js"></script>
+<script src="/static/js/remote.js"></script>
+<script src="/static/js/player.js"></script>
+<script src="/static/js/moderator.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

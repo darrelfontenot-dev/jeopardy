@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Design tokens: single source of truth for colour, type, radius, shadow and motion.
+   Change a value here, not in component rules.
+   ========================================================================== */
+:root {
+  /* ---- Typography -------------------------------------------------------- */
+  --font: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  --fs-hero-title: 32px;      /* .hero-title  (700) */
+  --fs-hero-subtitle: 18px;   /* .hero-subtitle (500, muted) */
+  --fs-card-title: 20px;      /* .card-title / .chat-title-main (700) */
+  --fs-kpi-hero: 24px;        /* big KPI number (600) */
+  --fs-kpi-title: 13px;       /* KPI card title (600) */
+  --fs-nav: 14px;             /* header nav tabs (500) */
+  --fs-body: 14px;
+  --fs-control: 13px;         /* toggle pills, dropdowns */
+  --fs-small: 12px;           /* pills, stamps, meta */
+  --fs-micro: 10px;           /* chart labels */
+
+  /* ---- Surfaces & text --------------------------------------------------- */
+  --page-bg: #faf7f2;
+  --white: #ffffff;
+  --surface-subtle: #f3f4f6;  /* toggle-group track, subtle fills */
+  --text-primary: #13171b;
+  --text-secondary: #252525;
+  --text-muted: #686e74;      /* most-used neutral; icons use this stroke */
+  --text-light: #878c94;
+  --border: #dcdfe3;
+
+  /* ---- Brand blues ----------------------------------------- */
+  --blue-brand: #c41e3a;        /* primary brand blue, Actual series */
+  --blue-active: #a3152e;     /* active nav tab + underline, focus ring */
+  --blue-dark: #14532d;       /* deep navy: Plan series, emphasis text */
+  --cyan: #e0455c;
+  --ui-blue: #C41E3A;       
+  --ui-cobalt: #14532D;
+  --ui-sky: #FF8A9A;
+
+  /* ---- Accent teals ------------------------------------------------------ */
+  --teal: #2e9e5b;
+  --teal-bright: #3ddc84;
+  --teal-light: #cdeedb;
+
+  /* ---- Status / variance ------------------------------------------------- */
+  --green: #6bc162;
+  --green-pill-bg: #eaf6ee;   /* favourable pill */
+  --green-pill-border: #2e9e5b;
+  --green-pill-text: #1f7a45;
+  --red: #dc436a;             /* unfavourable text/border */
+  --red-pill-bg: #fbe8ee;
+  --red-dot: #d50946;
+  --yellow-badge: #ffecb3;    /* "In Review" badge */
+  --yellow-badge-text: #cc8200;
+  --yellow-review: #ffcc33;
+
+  /* ---- Chart series (12-month trend, sparklines) ------------------------- */
+  --series-actual: #c41e3a;   /* bars */
+  --series-prior: #b9bec2;    /* bars */
+  --series-plan: #14532d;     /* solid line */
+  --series-outlook: #ffb000;  /* dashed line */
+  --spark-grey: #a9afb6;      /* prior-year sparkline segment */
+  --spark-fill-prior: rgba(169,175,182,0.14);
+  --spark-fill-current: rgba(196,30,58,0.10);
+
+  /* ---- Shape & depth ----------------------------------------------------- */
+  --radius-lg: 8px;           /* cards, hero */
+  --radius-md: 4px;           /* pills, dropdowns, toggles */
+  --radius-sm: 2px;
+  --radius-pill: 12px;        /* variance pills */
+  --radius-rail: 16px 16px 16px 0;  
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-pill-active: 0 1px 3px rgba(0,0,0,0.12);
+
+  /* ---- Layout ------------------------------------------------------------ */
+  --header-h: 60px;
+  --page-max: 1700px;
+  --gutter: 16px;
+
+  /* ---- Motion ------------------------------------------------------------ */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-slide: 220ms;
+}

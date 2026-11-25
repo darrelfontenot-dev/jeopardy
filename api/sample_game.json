@@ -1,0 +1,107 @@
+{
+  "id": "sample",
+  "title": "Christmas sample board",
+  "final": {
+    "category": "SANTA'S REINDEER",
+    "clue": "In the poem \"A Visit from St. Nicholas,\" these are the last two reindeer Santa calls by name.",
+    "answer": "What are Donner (Donder) and Blitzen?"
+  },
+  "rounds": [
+    {
+      "key": "1",
+      "name": "Jeopardy",
+      "categories": [
+        {"name": "CHRISTMAS CAROLS", "clues": [
+          {"value": 200, "clue": "This carol begins \"Dashing through the snow, in a one-horse open sleigh\".", "answer": "What is \"Jingle Bells\"?", "dd": false},
+          {"value": 400, "clue": "In \"O Little Town of ...\" this is the town.", "answer": "What is Bethlehem?", "dd": false},
+          {"value": 600, "clue": "First performed in Austria in 1818, this quiet carol is often told to have been played on guitar because the church organ was broken.", "answer": "What is \"Silent Night\"?", "dd": false},
+          {"value": 800, "clue": "On the first day of Christmas, my true love gave to me this.", "answer": "What is a partridge in a pear tree?", "dd": false},
+          {"value": 1000, "clue": "Irving Berlin wrote this song, which Bing Crosby introduced in the 1942 film \"Holiday Inn\".", "answer": "What is \"White Christmas\"?", "dd": false}
+        ]},
+        {"name": "SANTA & CO.", "clues": [
+          {"value": 200, "clue": "These animals pull Santa's sleigh.", "answer": "What are reindeer?", "dd": false},
+          {"value": 400, "clue": "This reindeer has a nose that glows red and leads the sleigh on a foggy night.", "answer": "Who is Rudolph?", "dd": false},
+          {"value": 600, "clue": "In tradition, Santa's workshop is found at this place.", "answer": "What is the North Pole?", "dd": false},
+          {"value": 800, "clue": "Saint Nicholas, the inspiration for Santa, was a bishop in what is now this country, home to the city of Myra.", "answer": "What is Turkey?", "dd": false},
+          {"value": 1000, "clue": "\"'Twas the night before Christmas, when all through the house, not a creature was stirring, not even\" this small animal.", "answer": "What is a mouse?", "dd": false}
+        ]},
+        {"name": "HOLIDAY MOVIES", "clues": [
+          {"value": 200, "clue": "In this 1946 Frank Capra classic, an angel named Clarence helps George Bailey see what the world would be like without him.", "answer": "What is \"It's a Wonderful Life\"?", "dd": false},
+          {"value": 400, "clue": "Macaulay Culkin defended his house from burglars in this 1990 comedy.", "answer": "What is \"Home Alone\"?", "dd": false},
+          {"value": 600, "clue": "Will Ferrell plays Buddy, a human raised at the North Pole, in this 2003 film.", "answer": "What is \"Elf\"?", "dd": false},
+          {"value": 800, "clue": "This green creature from Dr. Seuss tries to steal Christmas from the Whos in Whoville.", "answer": "Who is the Grinch?", "dd": false},
+          {"value": 1000, "clue": "In \"A Christmas Story,\" Ralphie Parker desperately wants this gift, despite being told \"You'll shoot your eye out\".", "answer": "What is a Red Ryder BB gun?", "dd": false}
+        ]},
+        {"name": "FESTIVE FOOD", "clues": [
+          {"value": 200, "clue": "This creamy holiday drink is made with milk, cream, sugar and beaten eggs.", "answer": "What is eggnog?", "dd": false},
+          {"value": 400, "clue": "This traditional British Christmas dessert is often set alight with brandy before serving.", "answer": "What is Christmas pudding (plum pudding)?", "dd": false},
+          {"value": 600, "clue": "These white-and-red striped sweets are shaped like a shepherd's crook.", "answer": "What are candy canes?", "dd": false},
+          {"value": 800, "clue": "This tall, domed Italian sweet bread with candied fruit and raisins is a Christmas staple in Milan.", "answer": "What is panettone?", "dd": false},
+          {"value": 1000, "clue": "The French call this log-shaped cake made of sponge and chocolate cream a \"bûche de Noël\"; in English it is called this.", "answer": "What is a Yule log?", "dd": false}
+        ]},
+        {"name": "AROUND THE WORLD", "clues": [
+          {"value": 200, "clue": "In Spanish, \"Merry Christmas\" is \"Feliz\" this.", "answer": "What is Navidad?", "dd": false},
+          {"value": 400, "clue": "In this Asian country, a bucket of KFC fried chicken has become a popular Christmas meal.", "answer": "What is Japan?", "dd": false},
+          {"value": 600, "clue": "The decorated Christmas tree tradition as we know it began in this European country.", "answer": "What is Germany?", "dd": false},
+          {"value": 800, "clue": "In Mexico, nine nights of processions before Christmas that re-enact Mary and Joseph's search for lodging are called this.", "answer": "What are Las Posadas?", "dd": false},
+          {"value": 1000, "clue": "In the U.K. and many Commonwealth countries, December 26 is known by this name.", "answer": "What is Boxing Day?", "dd": false}
+        ]},
+        {"name": "DECK THE HALLS", "clues": [
+          {"value": 200, "clue": "This evergreen plant has prickly leaves and red berries and is hung as a Christmas decoration.", "answer": "What is holly?", "dd": false},
+          {"value": 400, "clue": "Tradition says you may kiss someone standing under this white-berried plant.", "answer": "What is mistletoe?", "dd": false},
+          {"value": 600, "clue": "In 1882 Edward Johnson, an associate of this inventor, made the first string of electric Christmas tree lights.", "answer": "Who is Thomas Edison?", "dd": false},
+          {"value": 800, "clue": "A giant Christmas tree is lit each year at Rockefeller Center in this U.S. city.", "answer": "What is New York City?", "dd": false},
+          {"value": 1000, "clue": "The poinsettia, named for America's first minister to this country, is native there.", "answer": "What is Mexico?", "dd": false}
+        ]}
+      ]
+    },
+    {
+      "key": "2",
+      "name": "Double Jeopardy",
+      "categories": [
+        {"name": "THE NATIVITY", "clues": [
+          {"value": 400, "clue": "In the Nativity story, the infant Jesus was laid in this feeding trough for animals.", "answer": "What is a manger?", "dd": false},
+          {"value": 800, "clue": "This angel announced to Mary that she would bear a son.", "answer": "Who is Gabriel?", "dd": false},
+          {"value": 1200, "clue": "The three gifts of the Magi were gold, frankincense and this.", "answer": "What is myrrh?", "dd": false},
+          {"value": 1600, "clue": "According to Luke, this Roman emperor ordered the census that brought Joseph and Mary to Bethlehem.", "answer": "Who is Caesar Augustus?", "dd": false},
+          {"value": 2000, "clue": "Celebrated on January 6, this feast's name comes from a Greek word meaning \"manifestation\".", "answer": "What is Epiphany?", "dd": false}
+        ]},
+        {"name": "CHRISTMAS HISTORY", "clues": [
+          {"value": 400, "clue": "In Western Christianity, Christmas Day falls on this date.", "answer": "What is December 25?", "dd": false},
+          {"value": 800, "clue": "In 1659 the Puritans of this colony banned the celebration of Christmas.", "answer": "What is Massachusetts (Massachusetts Bay Colony)?", "dd": false},
+          {"value": 1200, "clue": "Charles Dickens published this Christmas novella in 1843.", "answer": "What is \"A Christmas Carol\"?", "dd": false},
+          {"value": 1600, "clue": "In 1870 this Civil War general turned President signed the law making Christmas a federal holiday.", "answer": "Who is Ulysses S. Grant?", "dd": false},
+          {"value": 2000, "clue": "In 1914, soldiers on both sides of the Western Front paused fighting for the \"Christmas Truce\" in this war.", "answer": "What is World War I?", "dd": false}
+        ]},
+        {"name": "LITERARY CHRISTMAS", "clues": [
+          {"value": 400, "clue": "This miserly man is visited by three spirits in \"A Christmas Carol\".", "answer": "Who is Ebenezer Scrooge?", "dd": false},
+          {"value": 800, "clue": "Scrooge's late business partner who appears in chains is this man.", "answer": "Who is Jacob Marley?", "dd": false},
+          {"value": 1200, "clue": "Tiny Tim shares this last name with his father Bob.", "answer": "What is Cratchit?", "dd": false},
+          {"value": 1600, "clue": "This pen name was used by William Sydney Porter, author of \"The Gift of the Magi\".", "answer": "Who is O. Henry?", "dd": false},
+          {"value": 2000, "clue": "The 1816 story \"The Nutcracker and the Mouse King\" that inspired the ballet was written by this German author.", "answer": "Who is E.T.A. Hoffmann?", "dd": false}
+        ]},
+        {"name": "SNOW & WINTER", "clues": [
+          {"value": 400, "clue": "In the song, Frosty the Snowman came to life when this item was placed on his head.", "answer": "What is a (silk) hat?", "dd": false},
+          {"value": 800, "clue": "Frosty has a nose made from this small sewing item, and eyes made out of coal.", "answer": "What is a button?", "dd": false},
+          {"value": 1200, "clue": "The winter solstice, the shortest day in the Northern Hemisphere, usually falls on or near this date.", "answer": "What is December 21?", "dd": false},
+          {"value": 1600, "clue": "In German, \"Glühwein\" is a hot, spiced version of this drink.", "answer": "What is wine?", "dd": false},
+          {"value": 2000, "clue": "In 1885 Vermont farmer Wilson Bentley became the first person to photograph one of these.", "answer": "What is a snowflake?", "dd": false}
+        ]},
+        {"name": "FINISH THE SONG TITLE", "clues": [
+          {"value": 400, "clue": "\"Rudolph the Red-Nosed ...\"", "answer": "What is Reindeer?", "dd": false},
+          {"value": 800, "clue": "Mariah Carey's 1994 holiday hit: \"All I Want for Christmas Is ...\"", "answer": "What is You?", "dd": false},
+          {"value": 1200, "clue": "Wham!'s 1984 holiday song asks you to remember this particular Christmas: \"... Christmas\".", "answer": "What is \"Last Christmas\"?", "dd": false},
+          {"value": 1600, "clue": "Brenda Lee's 1958 hit: \"Rockin' Around the Christmas ...\"", "answer": "What is Tree?", "dd": false},
+          {"value": 2000, "clue": "Co-written by Mel Tormé, \"The Christmas Song\" (\"Chestnuts roasting on an open fire\") was first recorded in 1946 by this singer's trio.", "answer": "Who is Nat King Cole?", "dd": false}
+        ]},
+        {"name": "UNDER THE TREE", "clues": [
+          {"value": 400, "clue": "In many Christmas stories, these small helpers make toys in Santa's workshop.", "answer": "What are elves?", "dd": false},
+          {"value": 800, "clue": "In 1996 this red Sesame Street character laughed when squeezed and sparked a holiday shopping frenzy.", "answer": "Who is Elmo (Tickle Me Elmo)?", "dd": false},
+          {"value": 1200, "clue": "This Danish company's interlocking plastic bricks are a popular toy.", "answer": "What is LEGO?", "dd": false},
+          {"value": 1600, "clue": "Mattel introduced this fashion doll in 1959.", "answer": "Who is Barbie?", "dd": false},
+          {"value": 2000, "clue": "This Hungarian architecture professor invented his famous puzzle cube in 1974.", "answer": "Who is Ernő Rubik?", "dd": false}
+        ]}
+      ]
+    }
+  ]
+}
