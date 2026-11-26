@@ -1,0 +1,107 @@
+{
+  "id": "christmas-everyday",
+  "title": "Christmas for Everyone",
+  "final": {
+    "category": "CHRISTMAS TREES",
+    "clue": "An 1846 illustration of Queen Victoria and her German-born husband around a decorated tree helped popularize the custom; he was this prince.",
+    "answer": "Who is Prince Albert?"
+  },
+  "rounds": [
+    {
+      "key": "1",
+      "name": "Jeopardy",
+      "categories": [
+        {"name": "CHRISTMAS MOVIES", "clues": [
+          {"value": 200, "clue": "In this 1994 Tim Allen comedy, a man puts on a red suit after Santa falls off his roof.", "answer": "What is \"The Santa Clause\"?", "dd": false},
+          {"value": 400, "clue": "In \"The Polar Express,\" a magical train takes children to this place.", "answer": "What is the North Pole?", "dd": false},
+          {"value": 600, "clue": "This 1947 classic features a department store Santa named Kris Kringle who insists he is the real thing.", "answer": "What is \"Miracle on 34th Street\"?", "dd": false},
+          {"value": 800, "clue": "In \"Die Hard,\" John McClane battles terrorists at a Christmas party in Nakatomi Plaza in this California city.", "answer": "What is Los Angeles?", "dd": false},
+          {"value": 1000, "clue": "This \"Saturday Night Live\" alum plays Clark Griswold in \"National Lampoon's Christmas Vacation\".", "answer": "Who is Chevy Chase?", "dd": false}
+        ]},
+        {"name": "CHRISTMAS MUSIC", "clues": [
+          {"value": 200, "clue": "\"Deck the Halls with boughs of\" this prickly plant.", "answer": "What is holly?", "dd": false},
+          {"value": 400, "clue": "In \"The Twelve Days of Christmas,\" this many swans are a-swimming on the seventh day.", "answer": "What is seven?", "dd": false},
+          {"value": 600, "clue": "This \"King of Rock and Roll\" recorded \"Blue Christmas\" in 1957.", "answer": "Who is Elvis Presley?", "dd": false},
+          {"value": 800, "clue": "Vince Guaraldi composed the jazz soundtrack for this 1965 animated TV special.", "answer": "What is \"A Charlie Brown Christmas\"?", "dd": false},
+          {"value": 1000, "clue": "The melody of \"Carol of the Bells\" comes from a folk chant called \"Shchedryk\" from this country.", "answer": "What is Ukraine?", "dd": false}
+        ]},
+        {"name": "SANTA & REINDEER", "clues": [
+          {"value": 200, "clue": "Santa's wife is known by this name.", "answer": "Who is Mrs. Claus?", "dd": false},
+          {"value": 400, "clue": "Santa traditionally enters the house by coming down this.", "answer": "What is the chimney?", "dd": false},
+          {"value": 600, "clue": "Of the original eight reindeer, this one shares its name with an icy object in space that has a tail.", "answer": "Who is Comet?", "dd": false},
+          {"value": 800, "clue": "This illustrator's paintings for Coca-Cola ads, beginning in 1931, helped define Santa's modern jolly look.", "answer": "Who is Haddon Sundblom?", "dd": false},
+          {"value": 1000, "clue": "The tradition of tracking Santa began in 1955 when a misprinted phone number in an ad for this department store connected kids to a military hotline.", "answer": "What is Sears?", "dd": false}
+        ]},
+        {"name": "FOOD & DRINK", "clues": [
+          {"value": 200, "clue": "This spicy cookie is shaped like a little person and decorated with icing.", "answer": "What is a gingerbread man (or cookie)?", "dd": false},
+          {"value": 400, "clue": "\"The Christmas Song\" begins with these nuts roasting on an open fire.", "answer": "What are chestnuts?", "dd": false},
+          {"value": 600, "clue": "These tiny cabbage-like vegetables are a divisive part of a British Christmas dinner.", "answer": "What are Brussels sprouts?", "dd": false},
+          {"value": 800, "clue": "Wassail is a hot, spiced drink traditionally made from this apple beverage or from ale.", "answer": "What is cider?", "dd": false},
+          {"value": 1000, "clue": "The traditional Polish Christmas Eve feast, Wigilia, includes this many meatless dishes.", "answer": "What is twelve?", "dd": false}
+        ]},
+        {"name": "ORNAMENTS & DECOR", "clues": [
+          {"value": 200, "clue": "Traditionally, the top of the Christmas tree is topped with an angel or this celestial shape.", "answer": "What is a star?", "dd": false},
+          {"value": 400, "clue": "These long, shiny, thin strands are draped over Christmas trees.", "answer": "What is tinsel?", "dd": false},
+          {"value": 600, "clue": "An Advent wreath holds this many candles.", "answer": "What is four?", "dd": false},
+          {"value": 800, "clue": "In a popular tradition, a glass ornament shaped like this salty vegetable is hidden on the tree, and whoever finds it gets an extra gift.", "answer": "What is a pickle?", "dd": true},
+          {"value": 1000, "clue": "Wooden nutcracker figures are popular decorations; the ballet about one has a score by this Russian composer.", "answer": "Who is Tchaikovsky?", "dd": false}
+        ]},
+        {"name": "HOLIDAYS WORLDWIDE", "clues": [
+          {"value": 200, "clue": "The Jewish Festival of Lights, Hanukkah, lasts this many nights.", "answer": "What is eight?", "dd": false},
+          {"value": 400, "clue": "In Australia, Christmas arrives during this season.", "answer": "What is summer?", "dd": false},
+          {"value": 600, "clue": "In Italy, a kindly witch named La Befana delivers gifts on the eve of this January 6 feast.", "answer": "What is Epiphany?", "dd": false},
+          {"value": 800, "clue": "On December 13, Sweden honors this saint with girls wearing crowns of candles.", "answer": "Who is Saint Lucia (Lucy)?", "dd": false},
+          {"value": 1000, "clue": "In this Venezuelan capital, people traditionally roller-skate to early-morning Christmas church services.", "answer": "What is Caracas?", "dd": false}
+        ]}
+      ]
+    },
+    {
+      "key": "2",
+      "name": "Double Jeopardy",
+      "categories": [
+        {"name": "HOLIDAY TV", "clues": [
+          {"value": 400, "clue": "The 1964 stop-motion special \"Rudolph the Red-Nosed Reindeer\" features this island where unwanted toys live.", "answer": "What is the Island of Misfit Toys?", "dd": false},
+          {"value": 800, "clue": "The Grinch's loyal dog has this name.", "answer": "Who is Max?", "dd": false},
+          {"value": 1200, "clue": "This horror-film legend narrated the 1966 animated \"How the Grinch Stole Christmas!\"", "answer": "Who is Boris Karloff?", "dd": false},
+          {"value": 1600, "clue": "In the first full episode of \"The Simpsons,\" the family adopts a greyhound with this holiday-themed name.", "answer": "Who is Santa's Little Helper?", "dd": false},
+          {"value": 2000, "clue": "This British actor starred as Scrooge in \"The Muppet Christmas Carol\" (1992).", "answer": "Who is Michael Caine?", "dd": false}
+        ]},
+        {"name": "HOLIDAY TRADITIONS", "clues": [
+          {"value": 400, "clue": "Children traditionally leave out milk and these baked treats for Santa.", "answer": "What are cookies?", "dd": false},
+          {"value": 800, "clue": "The National Christmas Tree is lit each year on the Ellipse, near this Washington, D.C. residence.", "answer": "What is the White House?", "dd": false},
+          {"value": 1200, "clue": "Children are told that if they touch their Elf on the Shelf, he will lose this.", "answer": "What is his magic?", "dd": true},
+          {"value": 1600, "clue": "This four-sided spinning top is used in a traditional Hanukkah game.", "answer": "What is a dreidel?", "dd": false},
+          {"value": 2000, "clue": "\"A Festivus for the rest of us\" comes from an episode of this 1990s sitcom.", "answer": "What is \"Seinfeld\"?", "dd": false}
+        ]},
+        {"name": "NAME THAT SONG", "clues": [
+          {"value": 400, "clue": "\"You better watch out, you better not cry, you better not pout, I'm telling you why\".", "answer": "What is \"Santa Claus Is Comin' to Town\"?", "dd": false},
+          {"value": 800, "clue": "Judy Garland sang this song, which includes \"Let your heart be light,\" in the 1944 film \"Meet Me in St. Louis\".", "answer": "What is \"Have Yourself a Merry Little Christmas\"?", "dd": false},
+          {"value": 1200, "clue": "Andy Williams's 1963 song calls this season \"the most wonderful time of the year\".", "answer": "What is \"It's the Most Wonderful Time of the Year\"?", "dd": false},
+          {"value": 1600, "clue": "\"So this is Christmas, and what have you done?\" begins this 1971 song by John Lennon and Yoko Ono.", "answer": "What is \"Happy Xmas (War Is Over)\"?", "dd": false},
+          {"value": 2000, "clue": "In 1977, Bing Crosby sang \"Little Drummer Boy\" in a famous duet with this glam-rock star.", "answer": "Who is David Bowie?", "dd": false}
+        ]},
+        {"name": "CHRISTMAS BY THE NUMBERS", "clues": [
+          {"value": 400, "clue": "On the third day of Christmas, my true love gave to me this many French hens.", "answer": "What is three?", "dd": false},
+          {"value": 800, "clue": "Counting Rudolph, Santa's sleigh team has this many reindeer.", "answer": "What is nine?", "dd": false},
+          {"value": 1200, "clue": "A traditional Advent calendar has this many doors or windows.", "answer": "What is 24?", "dd": false},
+          {"value": 1600, "clue": "The first Rockefeller Center tree was put up in 1931 by workers during this economic crisis.", "answer": "What is the Great Depression?", "dd": false},
+          {"value": 2000, "clue": "If you add up every gift given in \"The Twelve Days of Christmas,\" you get this total.", "answer": "What is 364?", "dd": false}
+        ]},
+        {"name": "CHRISTMAS STORIES", "clues": [
+          {"value": 400, "clue": "In \"The Night Before Christmas,\" children are nestled in bed while visions of these treats dance in their heads.", "answer": "What are sugar plums?", "dd": false},
+          {"value": 800, "clue": "In \"The Lion, the Witch and the Wardrobe,\" it is always winter but never Christmas in this land.", "answer": "What is Narnia?", "dd": false},
+          {"value": 1200, "clue": "Clement Clarke Moore is traditionally credited with writing this 1823 poem about a visit from St. Nicholas.", "answer": "What is \"A Visit from St. Nicholas\" (\"The Night Before Christmas\")?", "dd": false},
+          {"value": 1600, "clue": "This author and illustrator wrote \"The Polar Express\" in 1985.", "answer": "Who is Chris Van Allsburg?", "dd": false},
+          {"value": 2000, "clue": "In Dr. Seuss's tale, the Grinch lives on top of this mountain north of Whoville.", "answer": "What is Mount Crumpit?", "dd": false}
+        ]},
+        {"name": "NATURE & SCIENCE", "clues": [
+          {"value": 400, "clue": "Fir, spruce and pine, popular Christmas trees, all belong to this group of cone-bearing evergreens.", "answer": "What are conifers?", "dd": false},
+          {"value": 800, "clue": "Reindeer are the same species as this North American animal.", "answer": "What is a caribou?", "dd": false},
+          {"value": 1200, "clue": "Frankincense and myrrh, two gifts of the Magi, are both made from this sticky substance that oozes from trees.", "answer": "What is resin (sap)?", "dd": false},
+          {"value": 1600, "clue": "The first artificial Christmas trees, made in 1800s Germany, were fashioned from dyed feathers of this bird.", "answer": "What is a goose?", "dd": true},
+          {"value": 2000, "clue": "The red parts of a poinsettia that look like petals are actually modified leaves called these.", "answer": "What are bracts?", "dd": false}
+        ]}
+      ]
+    }
+  ]
+}

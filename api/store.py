@@ -80,11 +80,27 @@ def sample_game() -> dict[str, Any]:
     return _sample
 
 
-def _sample_summary() -> dict[str, Any]:
-    game = sample_game()
+EXTRA_BUILTINS = {"christmas-everyday": "christmas_everyday.json"}
+_extra: dict[str, dict[str, Any]] = {}
+
+
+def extra_game(game_id: str) -> dict[str, Any]:
+    if game_id not in _extra:
+        game = json.loads((BASE_DIR / EXTRA_BUILTINS[game_id]).read_text(encoding="utf-8"))
+        game["source"] = "sample"
+        _extra[game_id] = game
+    return _extra[game_id]
+
+
+def _extra_summaries() -> list[dict[str, Any]]:
+    return [_sample_summary(extra_game(i)) for i in EXTRA_BUILTINS]
+
+
+def _sample_summary(game: dict[str, Any] | None = None) -> dict[str, Any]:
+    game = game or sample_game()
     clues = sum(len(c["clues"]) for r in game["rounds"] for c in r["categories"]) + (1 if game["final"] else 0)
     cats = sum(len(r["categories"]) for r in game["rounds"])
-    return {"id": SAMPLE_ID, "title": game["title"], "clues": clues, "categories": cats, "rounds": len(game["rounds"]), "hasFinal": bool(game["final"]), "source": "sample", "updated": None}
+    return {"id": game["id"], "title": game["title"], "clues": clues, "categories": cats, "rounds": len(game["rounds"]), "hasFinal": bool(game["final"]), "source": "sample", "updated": None}
 
 
 # ---------------------------------------------------------------------------------------------
@@ -94,7 +110,7 @@ def _sample_summary() -> dict[str, Any]:
 def list_games() -> dict[str, Any]:
     """{'games': [...], 'source': 'supabase'|'sample', 'warning': str|None}"""
     if not database_configured():
-        return {"games": [_sample_summary()], "source": "sample", "warning": "No database is configured, so the built-in sample board is shown."}
+        return {"games": [_sample_summary(), *_extra_summaries()], "source": "sample", "warning": "No database is configured, so the built-in sample board is shown."}
     try:
         rows = db.fetch_all(
             """
@@ -111,7 +127,7 @@ def list_games() -> dict[str, Any]:
         )
     except Exception as exc:  # noqa: BLE001
         log.warning("could not read fj_questions: %s", exc)
-        return {"games": [_sample_summary()], "source": "sample", "warning": "The question table could not be read, so the built-in sample board is shown."}
+        return {"games": [_sample_summary(), *_extra_summaries()], "source": "sample", "warning": "The question table could not be read, so the built-in sample board is shown."}
     games = [
         {
             "id": r["game_id"], "title": r["game_id"], "clues": int(r["clues"]), "categories": int(r["categories"]),
@@ -121,13 +137,16 @@ def list_games() -> dict[str, Any]:
         for r in rows
     ]
     if not games:
-        return {"games": [_sample_summary()], "source": "sample", "warning": "No question sets are saved yet, so the built-in sample board is shown. Upload yours in Manage questions."}
+        return {"games": [_sample_summary(), *_extra_summaries()], "source": "sample", "warning": "No question sets are saved yet, so the built-in sample board is shown. Upload yours in Manage questions."}
+    games += [s for s in _extra_summaries() if s["id"] not in {g["id"] for g in games}]
     return {"games": games, "source": SOURCE, "warning": None}
 
 
 def get_game(game_id: str) -> dict[str, Any] | None:
     if game_id == SAMPLE_ID:
         return sample_game()
+    if game_id in EXTRA_BUILTINS:
+        return extra_game(game_id)
     if not database_configured():
         return None
     rows = db.fetch_all(
